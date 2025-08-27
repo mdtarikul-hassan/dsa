@@ -3,6 +3,161 @@ import java.util.*;
 
 
 public class arr {
+    // ************* 2d array ***************************
+    public static boolean Sorted2dSearchbt(int arr[][], int key){ // from bottom right to top left
+        int row = arr.length -1;
+        int col = 0;
+
+        while(row >=0 && col < arr[0].length){
+            if(arr[row][col] == key){
+                System.out.println(key + " founf at index of ("+row+","+col+")");
+                return true;
+            }else if(key > arr[row][col]){
+                col++;
+            }else{
+                row--;
+            }
+        }
+        System.out.println(key +" not found.");
+        return false;
+    }
+    public static boolean Sorted2dSearchtb(int arr[][], int key){ // from topright to bottomleft
+        int row = 0;
+        int col = arr[0].length -1;
+        while(row < arr.length && col >= 0){
+            if(arr[row][col] == key){
+                System.out.println(key+" found in the index of ("+ row + ","+ col+")");
+                return true;
+            }else if(key > arr[row][col]){
+                row++;
+            }else{
+                col--;
+            }
+        }
+        System.out.println(key+" not found");
+        return false;
+    }
+    public static void DiagonalSum(int arr[][]){
+        int sum = 0;
+        // for(int i=0; i<arr.length; i++){
+        //     for(int j=0; j<arr[0].length; j++){
+        //         if(i == j){
+        //             sum+= arr[i][j];
+        //         }else if (i+j == arr.length -1) {
+        //             sum+= arr[i][j];
+        //         }  
+        //     }
+        // }
+        for(int i = 0; i<arr.length; i++){
+            //primary diagonal
+            sum+= arr[i][i];
+            // sec diagonal
+            if(i != arr.length -1-i){
+                sum+= arr[i][arr.length-1-i];
+            }
+        }
+        System.out.println("Diagonal sum is : "+sum);
+    }
+    public static void SpiralMatrixAntiClock(int arr[][]){
+        int stRow = 0;
+        int endRow = arr.length -1;
+        int stCol = 0;
+        int endCol = arr[0].length -1;
+
+        while(stRow <= endRow && stCol <= endCol){
+            // left
+            for(int i=stRow; i<=endRow; i++){
+                System.out.print(arr[i][stCol]+" ");
+            }
+            //bottom
+            for(int j=stCol+1; j<=endCol; j++){
+                System.out.print(arr[endRow][j]+" ");
+            }
+            // right
+            for(int i=endRow-1; i>=stRow; i--){
+                if(stCol == endCol){
+                    break;
+                }
+                System.out.print(arr[i][endCol]+" ");
+            }
+            //top
+            for(int j=endCol-1; j>=stCol+1; j--){
+                if(stRow == endRow){
+                    break;
+                }
+                System.out.print(arr[stRow][j]+" ");
+            }
+            stRow ++;
+            stCol ++;
+            endRow --;
+            endCol --;
+        }
+        System.out.println();
+    }
+
+
+    public static void SpiralMatrixClock(int arr[][]){
+        int stRow = 0;
+        int endRow = arr.length -1;
+        int stCol = 0;
+        int endCol = arr[0].length -1;
+
+        while(stRow<=endRow && stCol<=endCol){
+            //top
+            for(int j=stCol; j<=endCol; j++){
+                System.out.print(arr[stRow][j]+" ");
+            }
+            //right
+            for(int i=stRow+1; i<=endRow; i++){
+                System.out.print(arr[i][endCol]+" ");
+            }
+            //bottom
+            for(int j=endCol -1; j>=stCol; j--){
+                if(stRow == endRow){
+                    break;
+                }
+                System.out.print(arr[endRow][j]+" ");
+            }
+            //left
+            for(int i=endRow -1; i>=stRow+1; i--){
+                if(stCol == endCol){
+                    break;
+                }
+                System.out.print(arr[i][stCol]+" ");
+            }
+
+            stRow ++;
+            stCol ++;
+            endRow --;
+            endCol --;
+        }
+        System.out.println();
+
+    }
+    
+    public static void Searchin2dArray(int arr[][],int key){
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[0].length; j++) {
+                if(arr[i][j] == key){
+                    System.out.println(key + " found in the index of ("+ (i+1) +" , "+(j+1)+")");
+                }
+            }
+        }
+    }
+
+    
+    public static void Print2dArray(int arr[][]){
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[0].length; j++) {
+                System.out.print(arr[i][j] + " ");
+            }
+            System.out.println();
+        }
+     }
+
+
+
+    // *************************************1d array************************
     public static void CountSort(int marks[]){
         //count largest
         int largest = Integer.MIN_VALUE;
@@ -271,6 +426,7 @@ public class arr {
         }
         System.out.println();
     }
+
     public static void main(String[] args) {
         int marks[] = {3,5,10,5,6,4,9};
 
@@ -356,5 +512,52 @@ public class arr {
         // count sort
         System.out.println("After counting sort the sorted array is : ");
         CountSort(marks);
+
+
+        // *************************2D ARRAY ******************************
+
+        
+        // create 2d array
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter the no of row :");
+        int m = sc.nextInt();
+
+        System.out.print("Enter the no of coloum :");
+        int n = sc.nextInt();
+
+        int arr[][] = new int[m][n];
+
+        System.out.println("Enter the elements of matrix : ");
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                arr[i][j] = sc.nextInt();
+            }
+        }
+
+        System.out.println("The 2d Array is : ");
+        Print2dArray(arr);
+
+        // search in 2d array
+        Searchin2dArray(arr, 10);
+
+
+        // spiral matrix (clockwise)
+        System.out.print("The Clockwise Spiral matrix is : ");
+        SpiralMatrixClock(arr);
+
+        // spiral Matrix (anticlockwise)
+
+        System.out.print("The Spiral AntiClock Matrix is :");
+        SpiralMatrixAntiClock(arr);
+
+        // Diagonal sum
+        DiagonalSum(arr);
+
+        // Search in Sorted 2d Array
+        Sorted2dSearchtb(arr,32);
+        Sorted2dSearchbt(arr, 40);
+
+
     }
 }
